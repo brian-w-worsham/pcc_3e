@@ -343,3 +343,39 @@ my_tesla.battery.upgrade_battery()
 my_tesla.battery.get_range()
 
 
+# 9-13. Dice: Make a class Die with one attribute called sides, and which has
+#   a default value of 6. Write a method called roll_die() that prints a random
+#   number between 1 and the number of sides. Make a 6-sided die and roll it 10
+#   times.
+from random import randint
+
+
+class Die:
+    """A class representing a die, which can be rolled."""
+
+    def __init__(self, sides=6):
+        """Initialize the die."""
+        self.sides = sides
+
+    def roll_die(self):
+        """Return a number between 1 and the number of sides."""
+        return randint(1, self.sides)
+
+
+my_dice = [Die() for i in range(10)]
+for die in my_dice:
+    print(die.roll_die())
+
+
+# 9-14. Lottery: Make a list or tuple containing a series of 10 numbers and 5
+# letters. Randomly select four numbers or letters from the list and print a
+# message saying that any ticket matching these four numbers or letters wins a
+# prize.
+
+
+from random import choice
+
+luck_numbers = [4, 8, 15, 16, 23, 42, 32, 95, 2, 93, 'a', 'b', 'c', 'd', 'e']
+print('Here are the winning numbers: ')
+for i in range(4):
+    print(choice(luck_numbers))
