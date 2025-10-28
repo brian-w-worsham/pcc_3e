@@ -341,3 +341,5 @@ my_tesla = ElectricCar("tesla", "model s", 2019)
 my_tesla.battery.get_range()
 my_tesla.battery.upgrade_battery()
 my_tesla.battery.get_range()
+
+
