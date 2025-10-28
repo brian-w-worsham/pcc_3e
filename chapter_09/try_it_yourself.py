@@ -1,10 +1,11 @@
-# 9-1. Restaurant: Make a class called Restaurant. The __init__() method for 
+# 9-1. Restaurant: Make a class called Restaurant. The __init__() method for
 # Restaurant should store two attributes: a restaurant_name and a cuisine_type.
 # Make a method called describe_restaurant() that prints these two pieces of
-# information, and a method called open_restaurant() that prints a message 
+# information, and a method called open_restaurant() that prints a message
 # indicating that the restaurant is open. Make an instance of Restaurant from
-# your class. Print the two attributes individually, and then call both 
+# your class. Print the two attributes individually, and then call both
 # methods.
+
 
 class Restaurant:
     def __init__(self, restaurant_name, cuisine_type):
@@ -94,6 +95,7 @@ user3.greet_user()
 
 class RestaurantWithServed:
     """A class representing a restaurant."""
+
     def __init__(self, restaurant_name, cuisine_type):
         """Initialize restaurant attributes."""
         self.restaurant_name = restaurant_name
@@ -128,10 +130,10 @@ restaurant.increment_number_served(10)
 print(f"Number of customers served: {restaurant.number_served}")
 
 # 9-5. Login Attempts: Add an attribute called login_attempts to your User
-# class from Exercise 9-3 (page 162). Write a method called 
+# class from Exercise 9-3 (page 162). Write a method called
 # increment_login_attempts() that increments the value of login_attempts by 1.
 # Write another method called reset_login_attempts() that resets the value of
-# login_attempts to 0. Make an instance of the User class and call 
+# -login_attempts to 0. Make an instance of the User class and call
 # increment_login_attempts() several times. Print the value of login_attempts
 # to make sure it was incremented properly, and then call
 # reset_login_attempts(). Print login_attempts again to make sure it was
@@ -139,6 +141,8 @@ print(f"Number of customers served: {restaurant.number_served}")
 
 
 class UserWithLoginAttempts:
+    """A class representing a user."""
+
     def __init__(self, first_name, last_name, age, email):
         """Initialize user attributes."""
         self.first_name = first_name
@@ -174,3 +178,166 @@ user.increment_login_attempts()
 print(f"Login attempts: {user.login_attempts}")
 user.reset_login_attempts()
 print(f"Login attempts after reset: {user.login_attempts}")
+
+# 9-6. Ice Cream Stand: An ice cream stand is a specific kind of restaurant.
+# Write a class called IceCreamStand that inherits from the Restaurant class
+# you wrote in Exercise 9-1 (page 162) or Exercise 9-4 (page 16). Either
+# version of the class will work; just pick the one you like better. Add an
+# attribute called flavors that stores a list of ice cream flavors. Write a
+# method that displays these flavors. Create an instance of IceCreamStand, and
+# call this method.
+
+
+class IceCreamStand(RestaurantWithServed):
+    """Represent an ice cream stand."""
+
+    def __init__(self, name, cuisine_type="ice cream"):
+        """Initialize an ice cream stand."""
+        super().__init__(name, cuisine_type)
+        self.flavors = []
+
+    def show_flavors(self):
+        """Display the flavors available."""
+        print("\nWe have the following flavors available:")
+        for flavor in self.flavors:
+            print(f"- {flavor.title()}")
+
+
+ice_cream_stand = IceCreamStand("The Big One")
+ice_cream_stand.flavors = ["vanilla", "chocolate", "black cherry"]
+ice_cream_stand.show_flavors()
+
+# 9-7. Admin: An administrator is a special kind of user. Write a class called
+# Admin that inherits from the User class you wrote in Exercise 9-3 (page 162)
+# or Exercise 9-5 (page 167). Add an attribute, privileges, that stores a list
+# of strings like "can add post", "can delete post", "can ban user", and so
+# on. Write a method called show_privileges() that lists the administrator’s
+# set of privileges. Create an instance of Admin, and call your method.
+
+
+class Admin(UserWithLoginAttempts):
+    """Represent an administrator."""
+
+    def __init__(self, first_name, last_name, age, email):
+        """Initialize an administrator."""
+        super().__init__(first_name, last_name, age, email)
+        self.privileges = []
+
+    def show_privileges(self):
+        """Display the privileges of the administrator."""
+        print("\nPrivileges:")
+        for privilege in self.privileges:
+            print(f"- {privilege}")
+
+
+admin = Admin("Diana", "Brown", 28, "diana@example.com")
+admin.privileges = ["can add post", "can delete post", "can ban user"]
+admin.show_privileges()
+
+
+# 9-8. Privileges: Write a separate Privileges class. The class should have
+# one attribute, privileges, that stores a list of strings as described in
+# Exercise 9-7. Move the show_privileges() method to this class. Make a
+# Privileges instance as an attribute in the Admin class. Create a new
+# instance of Admin and use your method to show its privileges.
+
+
+class Privileges:
+    """A class to store an admin's privileges."""
+
+    def __init__(self, privileges=[]):
+        """Initialize the privileges."""
+        self.privileges = privileges
+
+    def show_privileges(self):
+        """Display the privileges of the administrator."""
+        print("\nPrivileges:")
+        if self.privileges:
+            for privilege in self.privileges:
+                print(f"- {privilege}")
+        else:
+            print("- This user has no privileges.")
+
+
+my_admin = Admin("Diana", "Brown", 28, "diana@example.com")
+my_admin.privileges = [
+    "can add post",
+    "can delete post",
+    "can ban user",
+    "can create content",
+]
+my_admin.show_privileges()
+
+
+# 9-9. Battery Upgrade: Use the final version of electric_car.py from this
+# section. Add a method to the Battery class called upgrade_battery(). This
+# method should check the battery size and set the capacity to 65 if it isn't
+# already. Make an electric car with a default battery size, call get_range()
+# once, and then call get_range() a second time after upgrading the battery.
+# You should see an increase in the car’s range.
+
+
+class Battery:
+    """A simple attempt to model a battery for an electric car."""
+
+    def __init__(self, battery_size=40):
+        """Initialize the battery's attributes."""
+        self.battery_size = battery_size
+
+    def describe_battery(self):
+        """Print a statement describing the battery size."""
+        print(f"This car has a {self.battery_size}-kWh battery.")
+
+    def get_range(self):
+        """Print a statement about the range this battery provides."""
+        if self.battery_size == 40:
+            range = 240
+        elif self.battery_size == 65:
+            range = 315
+
+        print(f"This car can go about {range} miles on a full charge.")
+
+    def upgrade_battery(self):
+        """Upgrade the battery."""
+        if self.battery_size != 65:
+            self.battery_size = 65
+        else:
+            print("The battery is already upgraded.")
+
+
+class Car:
+    """A simple attempt to represent a car."""
+
+    def __init__(self, make, model, year):
+        """Initialize attributes to describe a car."""
+        self.make = make
+        self.model = model
+        self.year = year
+        self.odometer_reading = 0
+
+    def get_descriptive_name(self):
+        """Return a neatly formatted descriptive name."""
+        long_name = f"{self.year} {self.make} {self.model}"
+        return long_name.title()
+
+    def read_odometer(self):
+        """Print a statement showing the car's mileage."""
+        print(f"This car has {self.odometer_reading} miles on it.")
+
+
+class ElectricCar(Car):
+    """Models aspects of a car, specific to electric vehicles."""
+
+    def __init__(self, make, model, year):
+        """
+        Initialize attributes of the parent class.
+        Then initialize attributes specific to an electric car.
+        """
+        super().__init__(make, model, year)
+        self.battery = Battery()
+
+
+my_tesla = ElectricCar("tesla", "model s", 2019)
+my_tesla.battery.get_range()
+my_tesla.battery.upgrade_battery()
+my_tesla.battery.get_range()
