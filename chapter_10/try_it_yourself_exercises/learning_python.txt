@@ -1,0 +1,5 @@
+- In Python you can make Tuples, they are imutable lists.
+- In Python you can make Lists, they are arrays.
+- In Python you can make varialbles with all CAPS and pretend that they are Constants, but Constants don't really exist in Python.
+- In Python you can use the Python standard library.
+- In Python you can make functions, classes and modules.
