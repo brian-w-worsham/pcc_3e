@@ -125,3 +125,29 @@ for filename in filenames:
     relative_filename = base_dir / filename
     print(f"\nReading file: {relative_filename}")
     read_file(relative_filename)
+
+
+# 10-9. Silent Cats and Dogs: Modify your except block in Exercise 10-8 to
+# fail silently if either file is missing.
+
+
+def read_file_fail_silent(filename):
+    """Read and print the contents of a file."""
+    try:
+        with open(filename) as file:
+            contents = file.read()
+    except FileNotFoundError:
+        pass
+    else:
+        print(contents)
+
+
+filenames = ["cats.txt", "dogs.txt", "missing.txt"]
+
+for filename in filenames:
+    relative_filename = base_dir / filename
+    print(f"\nReading file: {relative_filename}")
+    read_file_fail_silent(relative_filename)
+
+
+
