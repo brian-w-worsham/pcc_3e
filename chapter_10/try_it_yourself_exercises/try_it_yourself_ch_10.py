@@ -150,4 +150,83 @@ for filename in filenames:
     read_file_fail_silent(relative_filename)
 
 
+# 10-11. Favorite Number: Write a program that prompts for the user’s favorite
+# number. Use json.dump() to store this number in a file. Write a separate
+# program that reads in this value and prints the message, "I know your
+# favorite number! It's _____.".
+import json
 
+
+def write_favorite_number():
+    """Write favorite number to file."""
+    favorite_number_file = base_dir / "favorite_number.json"
+    if favorite_number_file.exists():
+        json_contents = favorite_number_file.read_text()
+        favorite_number = json.loads(json_contents)
+    else:
+        favorite_number = input("What is your favorite number? ")
+        json_contents = json.dumps(favorite_number)
+        favorite_number_file.write_text(json_contents)
+
+
+def read_favorite_number():
+    """Read favorite number from file."""
+    favorite_number_file = base_dir / "favorite_number.json"
+    json_contents = favorite_number_file.read_text()
+    favorite_number = json.loads(json_contents)
+    print(f"I know your favorite number! It's {favorite_number}.")
+
+
+write_favorite_number()
+read_favorite_number()
+
+
+# 10-13. User Dictionary: The remember_me.py example only stores one piece of
+# information, username. Expand this example by asking for two more pieces of
+# information about the user, then store all the information you collect in a
+# dictionary. Write this dictionary to a file using json.dumps(), and read it
+# back in using json.loads(). Print a summary showing exactly what your
+# program remembers about the user.
+
+
+def get_stored_username(path):
+    """Get stored username if available."""
+    if path.exists():
+        contents = path.read_text()
+        username = json.loads(contents)
+        return username
+    else:
+        return None
+
+
+def get_new_username(path):
+    """Prompt for a new username."""
+    user_dict = {}
+    user_dict["username"] = input("What is your name? ")
+    user_dict["location"] = input("Where do you live? ")
+    user_dict["age"] = input("How old are you? ")
+    contents = json.dumps(user_dict)
+    path.write_text(contents)
+    return user_dict
+
+
+def greet_user():
+    """Greet the user by name."""
+    path = base_dir / "username.json"
+    username = get_stored_username(path)
+    if username:
+        print(f"Welcome back, {username}!")
+        user_response = input(f"Is your name {username['username']}? (y/n) ")
+        if user_response == "y":
+            print(f'Welcome back {username["username"]}!')
+            print(f"Your location is {username['location']}")
+            print(f"You are {username['age']} years old")
+        else:
+            username = get_new_username(path)
+            print(f"We'll remember you when you come back, {username}!")
+    else:
+        username = get_new_username(path)
+        print(f"We'll remember you when you come back, {username}!")
+
+
+greet_user()
