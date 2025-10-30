@@ -47,3 +47,28 @@ print(modified_contents)
 print("\nReading the file line by line without a temporary variable:\n")
 for line in contents.splitlines():
     print(line)
+
+
+# 10-4. Guest: Write a program that prompts the user for their name. When they
+# respond, write their name to a file called guest.txt.
+guest_path = base_dir / "guest.txt"
+guest_name = input("Please enter your name: ")
+guest_path.write_text(guest_name + "\n", encoding="utf-8")
+print(f"Your name has been written to {guest_path}")
+
+
+# 10-5. Guest Book: Write a while loop that prompts users for their name.
+# Collect all the names that are entered, and then write these names to a
+# file called guest_book.txt. Make sure each entry appears on a new line in
+# the file.
+guest_book_path = base_dir / "guest_book.txt"
+guest_names = []
+
+while True:
+    guest_name = input("Please enter your name (or 'quit' to stop): ")
+    if guest_name.lower() == "quit":
+        break
+    guest_names.append(guest_name)
+
+guest_book_path.write_text("\n".join(guest_names), encoding="utf-8")
+print(f"Guest book has been written to {guest_book_path}")
