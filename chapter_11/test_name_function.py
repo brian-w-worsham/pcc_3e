@@ -6,6 +6,7 @@ def test_first_last_name():
     formatted_name = get_formatted_name('janis', 'joplin')
     assert formatted_name == 'Janis Joplin'
 
+
 def test_first_last_middle_name():
     """Do names like 'Wolfgang Amadeus Mozart' work?"""
     formatted_name = get_formatted_name(
